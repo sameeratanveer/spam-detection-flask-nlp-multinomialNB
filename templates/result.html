@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Prediction Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        // Function to clear the message input field
+        function clearForm() {
+            document.getElementById("message").value = "";
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Spam Prediction Result</h2>
+
+        {% if message %}
+            <!-- Display the single message and prediction result -->
+            <p><strong>Message:</strong> {{ message }}</p>
+            <p><strong>Prediction:</strong> {{ result }}</p>
+        {% endif %}
+
+        {% if result_html_table %}
+            <!-- Display the result table (for multiple messages from a file) -->
+            <div class="table-responsive">
+                {{ result_html_table|safe }}
+            </div>
+
+            <a href="{{ url_for('download', filename=result_file) }}" class="btn btn-primary mt-3" download>
+                Download Result File
+            </a>
+        {% endif %}
+        <div class="mt-3">
+            <!-- "Go Back" button (will retain the message) -->
+            <a href="/" class="btn btn-secondary">Go Back</a>
+
+            <!-- "Start Over" button (will clear the message input)
+            <button class="btn btn-danger" onclick="clearForm()">Start Over</button> -->
+        </div>
+    </div>
+</body>
+</html>
